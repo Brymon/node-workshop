@@ -1,5 +1,6 @@
 var http = require('http');
 var fs = require('fs');
+var querystring = require('querystring');
 
 var message = "It's my birthday!";
 
@@ -45,11 +46,24 @@ function handler(request, response) {
             if (error) {
                 console.log(error);
                 return;
-            } 
+            } else {
+                var allTheData = '';
+                request.on('data', function(chunkOfData){
+                allTheData += chunkOfData;
+                });
+
+                request.on('end', function(){
+                var convertedData = querystring.parse(allThe )
+                    console.log(convertedData);
+                response.end();
+                });
+            }
             response.end(file);
         });
     }
-}
+};
+
+
 var server = http.createServer(handler);
 
 server.listen(3000, function() {
